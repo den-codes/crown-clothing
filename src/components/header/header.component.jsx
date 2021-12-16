@@ -14,9 +14,9 @@ const Header = ({ currentUser }) => (
             <Link className='option' to='/shop'>SHOP</Link>
             <Link className='option' to='/contact'>CONTACT</Link>
     {
-        currentUser ?
+        currentUser ? // if it's true, it renders the sign out buttom
         <div className='option' onClick={() => auth.signOut()}>SIGN OUT</div>
-        :
+        :  //if it's null(false), it shows the sign in buttom
         <Link className='option' to='/signin'>SIGN IN</Link>
     }
     </div>

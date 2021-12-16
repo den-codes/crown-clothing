@@ -20,7 +20,23 @@ unsubscribeFromAuth = null
 
 componentDidMount(){
   this.unsubscribeFromAuth = auth.onAuthStateChanged(user => {
-    this.setState = ({currentUser: user});
+    if (userAuth) {
+      const userRef = await createUserProfileDocument(userAuth);
+
+      userRef.onSnapshot(snapShot => {
+        this.setState({
+          currentUser: {
+            id: snapShot.id,
+            ...snapShot.data()
+          }/*,() =>{
+            console.log(this.state)
+          }*/
+        })
+      });
+    }
+    else {
+      this.setState({currentUser: userAuth})
+    }
   });
 }
 componentWillUnmount(){
