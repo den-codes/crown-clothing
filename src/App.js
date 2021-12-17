@@ -56,7 +56,7 @@ render(){
               this.props.currentUser ? (
                 <Redirect to='/' />
               ) : (
-                <SignInAndSignUpPage />
+                <SignInAndSignUp />
               )
             } /*if the currentUser has already signed up
             it will redirect to the homepage, otherwise it will redirecto
