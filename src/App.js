@@ -2,7 +2,7 @@ import React from 'react';
 import './App.css';
 
 import HomePage from './pages/homepage/homepage.component';
-import { Route, Switch } from 'react-router-dom';
+import { Route, Switch, Redirect } from 'react-router-dom';
 import ShopPage from './pages/shop/shop.component';
 import SignInAndSignUp from './pages/sign-in-and-sign-up/sign-in-and-sign-up.component';
 import Header from './components/header/header.component';
@@ -50,12 +50,27 @@ render(){
       <Switch>
       <Route exact path='/' component={HomePage} />
       <Route path='/shop' component={ShopPage} />
-      <Route path='/signin' component={SignInAndSignUp} />
+      <Route exact
+            path='/signin'
+            render={() => 
+              this.props.currentUser ? (
+                <Redirect to='/' />
+              ) : (
+                <SignInAndSignUpPage />
+              )
+            } /*if the currentUser has already signed up
+            it will redirect to the homepage, otherwise it will redirecto
+            to the signin page
+            */
+            /> 
       </Switch>
     </div>
   );
 }
 } 
+const mapStateToProps = ({ user }) => ({
+  currentUser: user.currentUser
+});
 const mapDispatchToProps = dispatch => ({
   setCurrentUser: user =>dispatch(setCurrentUser(user))
 })
